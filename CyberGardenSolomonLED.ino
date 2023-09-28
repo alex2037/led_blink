@@ -4,7 +4,7 @@
 
 #define LEDPIN 6
 #define PWM 127
-#define DELAY 200
+#define DELAY 100
 #define LED_START_STATE 0
 
 void setup() {
@@ -31,7 +31,7 @@ void transmit_info()
   {
     for(int j=0; j<8; j++)
     {
-      if(bitRead(buffer[i],j)) digitalWrite(LEDPIN,HIGH);
+      if(bitRead(buffer[i],j)) analogWrite(LEDPIN,50);
       delay(DELAY);
       digitalWrite(LEDPIN, LOW);
     }
@@ -64,8 +64,9 @@ String STR;
 
 void loop() {
   String tempstr = "";
-  while (Serial.available() > 0) {
-    STR = Serial.readString();
+  //while (Serial.available() > 0) {
+    //STR = Serial.readString();
+    STR = "hello world";
     for(int i=0; i < STR.length(); i++)
     {
       if(((byte)STR[i]>96)&&((byte)STR[i]<123))
@@ -91,5 +92,6 @@ void loop() {
     code_info();
     transmit_info();
     erase_send_buffer();
-  } 
+    delay(3000);
+ // } 
 }
